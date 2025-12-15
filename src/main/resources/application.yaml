@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: payment-switch
+
+  integration:
+    tcp:
+      accept-backlog: 100 # maximum number of pending connections
+      so-timeout: 30000    # if no data is received within 30 seconds, close the connection
+
+switch:
+  tcp:
+    port: 8583
+
+logging:
+    level:
+        root: INFO
+        com.paymentswitch.payment_switch: DEBUG
+        org.jpos: INFO
+        org.springframework.integration: INFO
+    pattern:
+      console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
+      file: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
+    file:
+        name: logs/payment-switch.log
+        max-size: 10MB
+        max-history: 30
