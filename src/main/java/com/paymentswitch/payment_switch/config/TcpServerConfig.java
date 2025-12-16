@@ -31,6 +31,7 @@ public class TcpServerConfig {
 
     @Bean
     public ByteArrayLengthHeaderSerializer lengthHeaderSerializer() {
+        // Using Length Header Serializer for message framing
         ByteArrayLengthHeaderSerializer serializer = new ByteArrayLengthHeaderSerializer();
         serializer.setMaxMessageSize(2048);
         return serializer;
