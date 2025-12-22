@@ -1,5 +1,6 @@
 package com.paymentswitch.payment_switch.model;
 
+// Enum representing standard ISO 8583 response codes and their descriptions
 public enum ResponseCode {
     APPROVED("00", "Approved"),
     INVALID_TRANSACTION("12", "Invalid transaction"),

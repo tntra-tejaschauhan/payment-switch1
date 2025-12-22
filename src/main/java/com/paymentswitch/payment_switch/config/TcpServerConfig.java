@@ -8,14 +8,13 @@ import org.springframework.integration.channel.DirectChannel;
 import org.springframework.integration.ip.tcp.connection.AbstractServerConnectionFactory;
 import org.springframework.integration.ip.tcp.connection.TcpNetServerConnectionFactory;
 import org.springframework.integration.ip.tcp.inbound.TcpReceivingChannelAdapter;
-import org.springframework.integration.ip.tcp.outbound.TcpSendingMessageHandler;
+import org.springframework. integration.ip.tcp.outbound.TcpSendingMessageHandler;
 import org.springframework.integration.ip.tcp.serializer.ByteArrayCrLfSerializer;
 import org.springframework.integration.ip.tcp.serializer.ByteArrayLengthHeaderSerializer;
 import org.springframework.messaging.MessageChannel;
 
 @Configuration
 public class TcpServerConfig {
-
 
     @Value("${switch.tcp.port}")
     private int port;
@@ -63,4 +62,4 @@ public class TcpServerConfig {
         return handler;
     }
 
-}
+    }

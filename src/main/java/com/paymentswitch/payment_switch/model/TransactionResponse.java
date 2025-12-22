@@ -1,8 +1,15 @@
 package com.paymentswitch.payment_switch.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+
+@Builder
 public record TransactionResponse(
         String messageType,
         String primaryAccountNumber,
