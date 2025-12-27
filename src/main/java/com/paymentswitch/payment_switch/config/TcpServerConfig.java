@@ -8,8 +8,7 @@ import org.springframework.integration.channel.DirectChannel;
 import org.springframework.integration.ip.tcp.connection.AbstractServerConnectionFactory;
 import org.springframework.integration.ip.tcp.connection.TcpNetServerConnectionFactory;
 import org.springframework.integration.ip.tcp.inbound.TcpReceivingChannelAdapter;
-import org.springframework. integration.ip.tcp.outbound.TcpSendingMessageHandler;
-import org.springframework.integration.ip.tcp.serializer.ByteArrayCrLfSerializer;
+import org.springframework.integration.ip.tcp.outbound.TcpSendingMessageHandler;
 import org.springframework.integration.ip.tcp.serializer.ByteArrayLengthHeaderSerializer;
 import org.springframework.messaging.MessageChannel;
 
@@ -29,12 +28,10 @@ public class TcpServerConfig {
     }
 
     @Bean
-    public ByteArrayLengthHeaderSerializer lengthHeaderSerializer() {
-        // Using Length Header Serializer for message framing
-        ByteArrayLengthHeaderSerializer serializer = new ByteArrayLengthHeaderSerializer();
-        serializer.setMaxMessageSize(2048);
-        return serializer;
+    public ByteArrayLengthHeader2ByteSerializer lengthHeaderSerializer() {
+        return new ByteArrayLengthHeader2ByteSerializer();
     }
+
 
     @Bean
     public TcpReceivingChannelAdapter tcpInboundAdapter() {

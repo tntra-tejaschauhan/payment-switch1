@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -72,13 +73,30 @@ public class IsoMessageTransformer {
             return "000000000000";
         }
         long minorUnits = amount.multiply(BigDecimal.valueOf(100)).longValue();
-        return String.format("%012D",minorUnits);
+        return String.format("%012d",minorUnits);
     }
-    private LocalDateTime parseDateTime(String dateTime){
-        if(dateTime == null || dateTime.isEmpty()){
-            return  LocalDateTime.now();
+    private LocalDateTime parseDateTime(String dateTime) {
+        if (dateTime == null || dateTime.isEmpty()) {
+            return LocalDateTime.now();
         }
-        return LocalDateTime.parse(dateTime,ISO_DATE_FORMAT);
+
+        try {
+            // ISO 8583 field 7: MMDDhhmmss (no year)
+            // Example: "1227212919" -> December 27, 21:29:19
+            int month = Integer.parseInt(dateTime.substring(0, 2));
+            int day = Integer.parseInt(dateTime.substring(2, 4));
+            int hour = Integer.parseInt(dateTime.substring(4, 6));
+            int minute = Integer.parseInt(dateTime.substring(6, 8));
+            int second = Integer.parseInt(dateTime.substring(8, 10));
+
+            // Use current year since ISO 8583 doesn't include it
+            int year = LocalDate.now().getYear();
+
+            return LocalDateTime.of(year, month, day, hour, minute, second);
+        } catch (Exception e) {
+            log.error("Error parsing date/time: {}", dateTime, e);
+            return LocalDateTime.now();
+        }
     }
     private String formateDateTime(LocalDateTime datetime){
         if(datetime ==null){
