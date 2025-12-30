@@ -1,5 +1,6 @@
 package com.paymentswitch.payment_switch.client;
 
+import org.bouncycastle.util.Bytes;
 import org.jpos.iso.ISOException;
 import org.jpos.iso.ISOMsg;
 import org.jpos.iso.ISOUtil;
@@ -97,8 +98,12 @@ public class AtmSimulatorClient {
             lengthHeader[0]=(byte) ((requestBytes.length>>8) & 0xFF);
             lengthHeader[1]=(byte) (requestBytes.length & 0xFF);
 
-            out.write(lengthHeader);
-            out.write(requestBytes);
+            byte[] packet = new byte[lengthHeader.length + requestBytes.length];
+            System.arraycopy(lengthHeader, 0, packet, 0, lengthHeader.length);
+            System.arraycopy(requestBytes, 0, packet, lengthHeader.length, requestBytes.length);
+            out.write(packet);
+
+
             out.flush();
 
             System.out.println("Request sent:");

@@ -45,7 +45,8 @@ public class IsoMessageHandler {
         byte[] payload = message.getPayload();
         log.info("Received message: {} bytes", payload.length);
         log.debug("Raw message: {}", ISOUtil.hexString(payload));
-
+        log.info("header is "+message.getHeaders().toString());
+        log.info("payload is "+message.getPayload().toString());
         // Process the message and get result
         ProcessingResult result = processIsoMessage(payload);
 
